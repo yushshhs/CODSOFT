@@ -1,157 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Basic Calculator</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .calculator {
-      background: #fdfdfd;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      width: 340px;
-    }
-
-    .title {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 2em;
-      color: #333;
-    }
-
-    #display {
-      width: 100%;
-      height: 60px;
-      font-size: 1.8em;
-      margin-bottom: 20px;
-      padding: 10px;
-      text-align: right;
-      border: none;
-      background-color: #e6e6e6;
-      border-radius: 10px;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
-
-    .btn {
-      padding: 20px;
-      font-size: 1.5em;
-      border: none;
-      border-radius: 12px;
-      background-color: #ffffff;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn:hover {
-      background-color: #f0f0f0;
-    }
-
-    .operator {
-      background-color: #ffd966;
-    }
-
-    .operator:hover {
-      background-color: #ffcc00;
-    }
-
-    .equal {
-      grid-column: span 4;
-      background-color: #4caf50;
-      color: white;
-      font-weight: bold;
-    }
-
-    .equal:hover {
-      background-color: #45a049;
-    }
-
-    .clear {
-      background-color: #f44336;
-      color: white;
-    }
-
-    .clear:hover {
-      background-color: #d32f2f;
-    }
-  </style>
+  <title>Calculator</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+
   <div class="calculator">
-    <h1 class="title">Calculator</h1>
-    <input type="text" id="display" readonly>
-    <div class="buttons">
-      <button class="btn" data-value="7">7</button>
-      <button class="btn" data-value="8">8</button>
-      <button class="btn" data-value="9">9</button>
-      <button class="btn operator" data-value="/">÷</button>
+    <h2>Calculator</h2>
+    <input type="text" id="display" readonly><br>
 
-      <button class="btn" data-value="4">4</button>
-      <button class="btn" data-value="5">5</button>
-      <button class="btn" data-value="6">6</button>
-      <button class="btn operator" data-value="*">×</button>
+    <button onclick="addValue('7')">7</button>
+    <button onclick="addValue('8')">8</button>
+    <button onclick="addValue('9')">9</button>
+    <button onclick="addValue('/')">/</button><br>
 
-      <button class="btn" data-value="1">1</button>
-      <button class="btn" data-value="2">2</button>
-      <button class="btn" data-value="3">3</button>
-      <button class="btn operator" data-value="-">−</button>
+    <button onclick="addValue('4')">4</button>
+    <button onclick="addValue('5')">5</button>
+    <button onclick="addValue('6')">6</button>
+    <button onclick="addValue('*')">*</button><br>
 
-      <button class="btn" data-value="0">0</button>
-      <button class="btn" data-value=".">.</button>
-      <button class="btn clear" data-value="C">C</button>
-      <button class="btn operator" data-value="+">+</button>
+    <button onclick="addValue('1')">1</button>
+    <button onclick="addValue('2')">2</button>
+    <button onclick="addValue('3')">3</button>
+    <button onclick="addValue('-')">-</button><br>
 
-      <button class="btn equal" data-value="=">=</button>
-    </div>
+    <button onclick="addValue('0')">0</button>
+    <button onclick="addValue('.')">.</button>
+    <button class="clear-btn" onclick="clearDisplay()">C</button>
+    <button onclick="addValue('+')">+</button><br>
+
+    <button class="equal-btn" onclick="calculate()">=</button>
   </div>
 
   <script>
-    const display = document.getElementById("display");
-    const buttons = document.querySelectorAll(".btn");
+    let display = document.getElementById("display");
 
-    let input = "";
+    function addValue(val) {
+      display.value += val;
+    }
 
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        const value = button.getAttribute("data-value");
+    function clearDisplay() {
+      display.value = "";
+    }
 
-        if (value === "C") {
-          input = "";
-          display.value = "";
-        } else if (value === "=") {
-          try {
-            input = eval(input.replace(/÷/g, '/').replace(/×/g, '*'));
-            display.value = input;
-          } catch {
-            display.value = "Error";
-            input = "";
-          }
-        } else {
-          input += value;
-          display.value = input;
-        }
-      });
-    });
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = "Error";
+      }
+    }
   </script>
+
 </body>
 </html>
